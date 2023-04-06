@@ -1,15 +1,20 @@
-const ContactList = ({ data }) => {
+import Card from './Card'
+import Contact from './Contact'
+
+const ContactList = ({ data, onPressEdit, onPressRemove }) => {
   return (
-    <ul>
-      {data.map((contact) => (
-        <li key={contact.id}>
-          <p>
-            {contact.first_name} {contact.last_name}
-          </p>
-          <span>{contact.phone_number}</span>
-        </li>
-      ))}
-    </ul>
+    <Card>
+      <ul>
+        {data.map((contact) => (
+          <Contact
+            key={contact.id}
+            contact={contact}
+            onPressEdit={onPressEdit}
+            onPressRemove={onPressRemove}
+          />
+        ))}
+      </ul>
+    </Card>
   )
 }
 
