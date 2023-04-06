@@ -1,7 +1,7 @@
 import Card from './Card'
 import Contact from './Contact'
 
-const ContactList = ({ data, onPressEdit, onPressRemove }) => {
+const ContactList = ({ data, onClickEdit, onClickRemove }) => {
   return (
     <Card>
       <ul>
@@ -9,8 +9,8 @@ const ContactList = ({ data, onPressEdit, onPressRemove }) => {
           <Contact
             key={contact.id}
             contact={contact}
-            onPressEdit={onPressEdit}
-            onPressRemove={onPressRemove}
+            onClickEdit={onClickEdit}
+            onClickRemove={onClickRemove}
           />
         ))}
       </ul>

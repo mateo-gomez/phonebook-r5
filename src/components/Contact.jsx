@@ -1,6 +1,6 @@
 import Button from './Button'
 
-const Contact = ({ contact, onPressRemove, onPressEdit }) => {
+const Contact = ({ contact, onClickRemove, onEdit }) => {
   return (
     <li key={contact.id} className='contact'>
       <div className='contact-info'>
@@ -11,8 +11,8 @@ const Contact = ({ contact, onPressRemove, onPressEdit }) => {
       </div>
 
       <div className='contact-actions'>
-        <Button onPress={onPressRemove}>Remove</Button>
-        <Button onPress={onPressEdit}>Edit</Button>
+        <Button onClick={onClickRemove}>Remove</Button>
+        <Button onClick={onEdit}>Edit</Button>
       </div>
     </li>
   )
