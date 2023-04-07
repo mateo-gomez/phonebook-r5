@@ -29,9 +29,10 @@ function App() {
     <main>
       <h1>Phonebook</h1>
 
-      <section>
-        <ContactForm onSubmit={handleSubmit} />
-      </section>
+			<Button onClick={() => setShowContactForm(true)}>Add contact</Button>
+			<Modal show={showContactForm} onClose={handleCloseForm}>
+				<ContactForm onSubmit={handleSubmit} onDismiss={handleCloseForm} />
+			</Modal>
 
       <section>
         <ContactList data={contacts} />
