@@ -9,10 +9,10 @@ function App() {
 	const [contacts, setContacts] = useState([]);
 	const [showContactForm, setShowContactForm] = useState(false);
 
-	const handleSubmit = (form) => {
-		form.preventDefault();
+	const handleSubmit = (event) => {
+		event.preventDefault();
 
-		const data = new FormData(form.target);
+		const data = new FormData(event.target);
 
 		const newContact = {
 			id: window.crypto.randomUUID(),
@@ -42,6 +42,8 @@ function App() {
 	return (
 		<main>
 			<h1>Phonebook</h1>
+
+			<input type="search" name="search" />
 
 			<Button onClick={() => setShowContactForm(true)}>Add contact</Button>
 			<Modal show={showContactForm} onClose={handleCloseForm}>
