@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import ContactList from "./components/ContactList";
 import ContactForm from "./components/ContactForm";
@@ -9,13 +9,27 @@ function App() {
 	const [contacts, setContacts] = useState([]);
 	const [showContactForm, setShowContactForm] = useState(false);
 
+	useEffect(() => {
+		const restoreSavedContacts = () => {
+			const contactsJson = globalThis.localStorage.getItem("contacts");
+
+			const storedContacts = contactsJson ? JSON.parse(contactsJson) : [];
+
+			if (storedContacts.length > 0) {
+				setContacts(() => storedContacts);
+			}
+		};
+
+		restoreSavedContacts();
+	}, []);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
 		const data = new FormData(event.target);
 
 		const newContact = {
-			id: window.crypto.randomUUID(),
+			id: globalThis.crypto.randomUUID(),
 			first_name: data.get("first_name"),
 			last_name: data.get("last_name"),
 			phone_number: data.get("phone_number"),
@@ -25,13 +39,23 @@ function App() {
 	};
 
 	const addContact = (contact) => {
-		setContacts((contacts) => [...contacts, contact]);
+		setContacts((prevContacts) => {
+			const contacts = [...prevContacts, contact];
+
+			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
+
+			return contacts;
+		});
 		setShowContactForm(false);
 	};
 
 	const handleRemoveContact = (id) => {
-		setContacts((contacts) => {
-			return contacts.filter((item) => item.id !== id);
+		setContacts((prevContacts) => {
+			const contacts = prevContacts.filter((item) => item.id !== id);
+
+			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
+
+			return contacts;
 		});
 	};
 
