@@ -14,7 +14,14 @@ const ContactForm = ({ onSubmit, onDismiss }) => {
 							<span aria-label="required">*</span>
 						</strong>
 					</label>
-					<input type="text" id="first_name" name="first_name" autoFocus="on" />
+					<input
+						required
+						ref={firstNameRef}
+						type="text"
+						id="first_name"
+						name="first_name"
+						autoFocus="on"
+					/>
 				</p>
 				<p>
 					<label htmlFor="last_name">
@@ -24,7 +31,13 @@ const ContactForm = ({ onSubmit, onDismiss }) => {
 							<span aria-label="required">*</span>
 						</strong>
 					</label>
-					<input type="text" id="last_name" name="last_name" />
+					<input
+						required
+						ref={lastNameRef}
+						type="text"
+						id="last_name"
+						name="last_name"
+					/>
 				</p>
 				<p>
 					<label htmlFor="phone_number">
@@ -34,7 +47,13 @@ const ContactForm = ({ onSubmit, onDismiss }) => {
 							<span aria-label="required">*</span>
 						</strong>
 					</label>
-					<input type="tel" id="phone_number" name="phone_number" />
+					<input
+						required
+						ref={phoneNumberRef}
+						type="tel"
+						id="phone_number"
+						name="phone_number"
+					/>
 				</p>
 			</section>
 
