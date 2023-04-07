@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import Button from "./Button";
 
 const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
+	const formRef = useRef(null);
+
 	const firstNameRef = useRef(null);
 	const lastNameRef = useRef(null);
 	const phoneNumberRef = useRef(null);
@@ -29,8 +31,24 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 		onSubmit(newContact);
 	};
 
+	useEffect(() => {
+		const form = formRef.current;
+
+		const keyDown = (e) => {
+			if (e.target === "Enter") {
+				form?.click();
+			}
+		};
+
+		form?.addEventListener("keydown", keyDown);
+
+		return () => {
+			form?.removeEventListener("keydown", keyDown);
+		};
+	}, []);
+
 	return (
-		<form onSubmit={handleSubmit} className="contact-form">
+		<form ref={formRef} onSubmit={handleSubmit} className="contact-form">
 			<section>
 				<h2>Contact information</h2>
 

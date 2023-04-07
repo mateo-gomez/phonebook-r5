@@ -11,10 +11,18 @@ const Modal = ({ children, show = false, onClose }) => {
 			}
 		};
 
+		const keyDown = (e) => {
+			if (e.code === "Escape") {
+				onClose();
+			}
+		};
+
 		portalContainer.addEventListener("click", clickout);
+		portalContainer.addEventListener("keydown", keyDown);
 
 		return () => {
 			portalContainer.removeEventListener("click", clickout);
+			portalContainer.removeEventListener("keydown", keyDown);
 		};
 	}, []);
 
