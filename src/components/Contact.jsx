@@ -1,8 +1,12 @@
 import Button from "./Button";
 
-const Contact = ({ contact, onClickRemove, onEdit }) => {
+const Contact = ({ contact, onClickRemove, onClickEdit }) => {
 	const handleClickRemove = () => {
 		onClickRemove(contact.id);
+	};
+
+	const handleEditContact = () => {
+		onClickEdit(contact);
 	};
 
 	return (
@@ -16,7 +20,7 @@ const Contact = ({ contact, onClickRemove, onEdit }) => {
 
 			<div className="contact-actions">
 				<Button onClick={handleClickRemove}>Remove</Button>
-				<Button onClick={onEdit}>Edit</Button>
+				<Button onClick={handleEditContact}>Edit</Button>
 			</div>
 		</li>
 	);

@@ -8,6 +8,7 @@ import Button from "./components/Button";
 function App() {
 	const [contacts, setContacts] = useState([]);
 	const [showContactForm, setShowContactForm] = useState(false);
+	const [contact, setContact] = useState(null);
 
 	useEffect(() => {
 		const restoreSavedContacts = () => {
@@ -23,21 +24,6 @@ function App() {
 		restoreSavedContacts();
 	}, []);
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-
-		const data = new FormData(event.target);
-
-		const newContact = {
-			id: globalThis.crypto.randomUUID(),
-			first_name: data.get("first_name"),
-			last_name: data.get("last_name"),
-			phone_number: data.get("phone_number"),
-		};
-
-		addContact(newContact);
-	};
-
 	const addContact = (contact) => {
 		setContacts((prevContacts) => {
 			const contacts = [...prevContacts, contact];
@@ -47,6 +33,35 @@ function App() {
 			return contacts;
 		});
 		setShowContactForm(false);
+	};
+
+	const updateContact = (contact) => {
+		setContacts((prevContacts) => {
+			const contacts = prevContacts
+				.filter((item) => item.id !== contact.id)
+				.concat([contact]);
+
+			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
+
+			return contacts;
+		});
+
+		setContact(null);
+
+		setShowContactForm(false);
+	};
+
+	const handleSubmit = (contact) => {
+		if (contact.id) {
+			updateContact(contact);
+		} else {
+			const newContact = {
+				...contact,
+				id: globalThis.crypto.randomUUID(),
+			};
+
+			addContact(newContact);
+		}
 	};
 
 	const handleRemoveContact = (id) => {
@@ -61,6 +76,14 @@ function App() {
 
 	const handleCloseForm = () => {
 		setShowContactForm(false);
+		setContact(null);
+	};
+
+	const handleEditContact = (contact) => {
+		setShowContactForm(true);
+		setContact(contact);
+	};
+
 	};
 
 	return (
@@ -71,10 +94,18 @@ function App() {
 
 			<Button onClick={() => setShowContactForm(true)}>Add contact</Button>
 			<Modal show={showContactForm} onClose={handleCloseForm}>
-				<ContactForm onSubmit={handleSubmit} onDismiss={handleCloseForm} />
+				<ContactForm
+					onSubmit={handleSubmit}
+					onDismiss={handleCloseForm}
+					contact={contact}
+				/>
 			</Modal>
 
-			<ContactList data={contacts} onClickRemove={handleRemoveContact} />
+			<ContactList
+				data={contacts}
+				onClickEdit={handleEditContact}
+				onClickRemove={handleRemoveContact}
+			/>
 		</main>
 	);
 }
