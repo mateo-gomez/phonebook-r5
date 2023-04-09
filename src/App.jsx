@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import ContactList from "./components/ContactList";
 import ContactForm from "./components/ContactForm";
 import Modal from "./components/Modal";
 import Button from "./components/Button";
+import { useContacts } from "./hooks/useContacts";
+import { useDebounce } from "./hooks/useDebounce";
 
 function App() {
-	const [contacts, setContacts] = useState([]);
+	const [search, setSearch] = useState("");
+	const debouncedSearch = useDebounce(search);
+	const { contacts, updateContacts } = useContacts(debouncedSearch);
 	const [showContactForm, setShowContactForm] = useState(false);
-	const [contact, setContact] = useState(null);
-
-	useEffect(() => {
-		const restoreSavedContacts = () => {
-			const contactsJson = globalThis.localStorage.getItem("contacts");
-
-			const storedContacts = contactsJson ? JSON.parse(contactsJson) : [];
-
-			if (storedContacts.length > 0) {
-				setContacts(() => storedContacts);
-			}
-		};
-
-		restoreSavedContacts();
-	}, []);
+	const [contactSelected, setContactSelected] = useState(null);
 
 	const addContact = (contact) => {
-		setContacts((prevContacts) => {
+		updateContacts((prevContacts) => {
 			const contacts = [...prevContacts, contact];
 
 			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -36,7 +26,7 @@ function App() {
 	};
 
 	const updateContact = (contact) => {
-		setContacts((prevContacts) => {
+		updateContacts((prevContacts) => {
 			const contacts = prevContacts
 				.filter((item) => item.id !== contact.id)
 				.concat([contact]);
@@ -46,7 +36,7 @@ function App() {
 			return contacts;
 		});
 
-		setContact(null);
+		setContactSelected(null);
 
 		setShowContactForm(false);
 	};
@@ -65,7 +55,7 @@ function App() {
 	};
 
 	const handleRemoveContact = (id) => {
-		setContacts((prevContacts) => {
+		updateContacts((prevContacts) => {
 			const contacts = prevContacts.filter((item) => item.id !== id);
 
 			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -76,12 +66,12 @@ function App() {
 
 	const handleCloseForm = () => {
 		setShowContactForm(false);
-		setContact(null);
+		setContactSelected(null);
 	};
 
 	const handleEditContact = (contact) => {
 		setShowContactForm(true);
-		setContact(contact);
+		setContactSelected(contact);
 	};
 
 	};
@@ -97,7 +87,7 @@ function App() {
 				<ContactForm
 					onSubmit={handleSubmit}
 					onDismiss={handleCloseForm}
-					contact={contact}
+					contact={contactSelected}
 				/>
 			</Modal>
 
