@@ -57,7 +57,7 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 					required
 					ref={firstNameRef}
 					minLength={3}
-					maxLength={20}
+					maxLength={30}
 					placeholder=" E.g: Julio"
 					label="First name"
 					type="text"
@@ -70,7 +70,7 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 					required
 					ref={lastNameRef}
 					minLength={3}
-					maxLength={20}
+					maxLength={30}
 					label="Last name"
 					placeholder="E.g: Perez"
 					type="text"
