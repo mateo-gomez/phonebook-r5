@@ -24,11 +24,11 @@ const Contact = ({ contact, onClickRemove, onClickEdit }) => {
 				</div>
 
 				<div className="contact-actions">
-					<Button onClick={handleClickRemove}>
-						<RemoveIcon /> Remove
-					</Button>
-					<Button variant="outlined" onClick={handleEditContact}>
+					<Button onClick={handleEditContact}>
 						<EditIcon /> Edit
+					</Button>
+					<Button variant="outlined" onClick={handleClickRemove}>
+						<RemoveIcon /> Remove
 					</Button>
 				</div>
 			</div>
