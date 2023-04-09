@@ -32,8 +32,8 @@ npm run preview
 This will serve the optimized build at http://localhost:5000.
 
 ## Dependencies
-React
-React-DOM
+- React
+- React-DOM
 
 ## Dev Dependencies
 - @types/react
