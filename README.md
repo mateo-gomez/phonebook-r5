@@ -36,14 +36,14 @@ React
 React-DOM
 
 ## Dev Dependencies
-. @types/react
-. @types/react-dom
-. @vitejs/plugin-react
-. eslint-config-prettier
-. prettier
-. standard
-. vite
-. ESLint Configuration
+- @types/react
+- @types/react-dom
+- @vitejs/plugin-react
+- eslint-config-prettier
+- prettier
+- standard
+- vite
+- ESLint Configuration
 
 ## License
 This project is licensed under the MIT License.
