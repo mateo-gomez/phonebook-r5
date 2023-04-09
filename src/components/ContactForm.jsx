@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Button from "./Button";
+import Input from "./Input";
 
 const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 	const formRef = useRef(null);
@@ -52,61 +53,52 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 			<section>
 				<h2>Contact information</h2>
 
-				<p>
-					<label htmlFor="first_name">
-						<span>First name: </span>
+				<Input
+					required
+					ref={firstNameRef}
+					minLength={3}
+					maxLength={20}
+					placeholder=" E.g: Julio"
+					label="First name"
+					type="text"
+					id="first_name"
+					name="first_name"
+					autoFocus="on"
+				/>
 
-						<strong>
-							<span aria-label="required">*</span>
-						</strong>
-					</label>
-					<input
-						required
-						ref={firstNameRef}
-						type="text"
-						id="first_name"
-						name="first_name"
-						autoFocus="on"
-					/>
-				</p>
-				<p>
-					<label htmlFor="last_name">
-						<span>Last name: </span>
+				<Input
+					required
+					ref={lastNameRef}
+					minLength={3}
+					maxLength={20}
+					label="Last name"
+					placeholder="E.g: Perez"
+					type="text"
+					id="last_name"
+					name="last_name"
+				/>
+				<Input
+					required
+					ref={phoneNumberRef}
+					label="Phone number"
+					placeholder="Must have at least 6 numbers"
+					type="tel"
+					minLength={6}
+					maxLength={10}
+					id="phone_number"
+					name="phone_number"
+				/>
 
-						<strong>
-							<span aria-label="required">*</span>
-						</strong>
-					</label>
-					<input
-						required
-						ref={lastNameRef}
-						type="text"
-						id="last_name"
-						name="last_name"
-					/>
+				<p className="required-text">
+					<span className="required">*</span> Indicates required
 				</p>
-				<p>
-					<label htmlFor="phone_number">
-						<span>Phone: </span>
-
-						<strong>
-							<span aria-label="required">*</span>
-						</strong>
-					</label>
-					<input
-						required
-						ref={phoneNumberRef}
-						type="tel"
-						id="phone_number"
-						name="phone_number"
-					/>
-				</p>
+				<div className="contact-form-actions">
+					<Button variant="outlined" onClick={onDismiss}>
+						Cancel
+					</Button>
+					<Button type="submit">{contact ? "Update" : "Add"}</Button>
+				</div>
 			</section>
-
-			<div className="contact-actions">
-				<Button type="submit">{contact ? "Update" : "Add"}</Button>
-				<Button onClick={onDismiss}>Cancel</Button>
-			</div>
 		</form>
 	);
 };
