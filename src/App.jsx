@@ -8,6 +8,7 @@ import { useContacts } from "./hooks/useContacts";
 import InputSearch from "./components/InputSearch";
 import { useDebounce } from "./hooks/useDebounce";
 import AddContactIcon from "./components/icons/AddContactIcon";
+import ContactsIcon from "./components/icons/ContactsIcon";
 
 function App() {
 	const [search, setSearch] = useState("");
@@ -84,7 +85,9 @@ function App() {
 
 	return (
 		<main>
-			<h1>Phonebook</h1>
+			<h1 className="title">
+				Phone Book <ContactsIcon fill="#0081C9" />
+			</h1>
 
 			<InputSearch onChange={handleChangeSearch} />
 			<Button onClick={() => setShowContactForm(true)}>
