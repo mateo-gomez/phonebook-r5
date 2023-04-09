@@ -5,6 +5,7 @@ import ContactForm from "./components/ContactForm";
 import Modal from "./components/Modal";
 import Button from "./components/Button";
 import { useContacts } from "./hooks/useContacts";
+import InputSearch from "./components/InputSearch";
 import { useDebounce } from "./hooks/useDebounce";
 
 function App() {
@@ -74,13 +75,17 @@ function App() {
 		setContactSelected(contact);
 	};
 
+	const handleChangeSearch = (e) => {
+		const text = e.target.value;
+
+		setSearch(text);
 	};
 
 	return (
 		<main>
 			<h1>Phonebook</h1>
 
-			<input type="search" name="search" />
+			<InputSearch onChange={handleChangeSearch} />
 
 			<Button onClick={() => setShowContactForm(true)}>Add contact</Button>
 			<Modal show={showContactForm} onClose={handleCloseForm}>
