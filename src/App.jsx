@@ -7,6 +7,7 @@ import Button from "./components/Button";
 import { useContacts } from "./hooks/useContacts";
 import InputSearch from "./components/InputSearch";
 import { useDebounce } from "./hooks/useDebounce";
+import AddContactIcon from "./components/icons/AddContactIcon";
 
 function App() {
 	const [search, setSearch] = useState("");
@@ -86,8 +87,10 @@ function App() {
 			<h1>Phonebook</h1>
 
 			<InputSearch onChange={handleChangeSearch} />
-
-			<Button onClick={() => setShowContactForm(true)}>Add contact</Button>
+			<Button onClick={() => setShowContactForm(true)}>
+				<AddContactIcon />
+				Add contact
+			</Button>
 			<Modal show={showContactForm} onClose={handleCloseForm}>
 				<ContactForm
 					onSubmit={handleSubmit}
