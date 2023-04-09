@@ -23,9 +23,9 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 
 		const newContact = {
 			id: contact ? contact.id : null,
-			first_name: data.get("first_name"),
-			last_name: data.get("last_name"),
-			phone_number: data.get("phone_number"),
+			first_name: data.get("first_name").trim(),
+			last_name: data.get("last_name").trim(),
+			phone_number: data.get("phone_number").trim(),
 		};
 
 		onSubmit(newContact);
