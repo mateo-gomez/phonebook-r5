@@ -1,6 +1,17 @@
-const Button = ({ type = "button", onClick, children, ...rest }) => {
+const Button = ({
+	variant = "contained",
+	type = "button",
+	onClick,
+	children,
+	...rest
+}) => {
 	return (
-		<button type={type} onClick={onClick} {...rest}>
+		<button
+			className={`button ${variant}`}
+			type={type}
+			onClick={onClick}
+			{...rest}
+		>
 			{children}
 		</button>
 	);

@@ -1,5 +1,7 @@
-import Avatar from "./Avatar";
+import Avatar from "./icons/Avatar";
 import Button from "./Button";
+import RemoveIcon from "./icons/RemoveIcon";
+import EditIcon from "./icons/EditIcon";
 
 const Contact = ({ contact, onClickRemove, onClickEdit }) => {
 	const handleClickRemove = () => {
@@ -13,7 +15,7 @@ const Contact = ({ contact, onClickRemove, onClickEdit }) => {
 	return (
 		<li key={contact.id}>
 			<div className="contact">
-				<Avatar size={80} color="#146C94" />
+				<Avatar size={80} color="#0081C9" />
 				<div className="contact-info">
 					<p>
 						{contact.first_name} {contact.last_name}
@@ -22,8 +24,12 @@ const Contact = ({ contact, onClickRemove, onClickEdit }) => {
 				</div>
 
 				<div className="contact-actions">
-					<Button onClick={handleClickRemove}>Remove</Button>
-					<Button onClick={handleEditContact}>Edit</Button>
+					<Button onClick={handleClickRemove}>
+						<RemoveIcon /> Remove
+					</Button>
+					<Button variant="outlined" onClick={handleEditContact}>
+						<EditIcon /> Edit
+					</Button>
 				</div>
 			</div>
 		</li>
