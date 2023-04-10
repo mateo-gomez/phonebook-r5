@@ -1,6 +1,8 @@
 # Phonebook-r5
 A simple phonebook project made with React.
 
+[Preview!](https://phonebook-r5.netlify.app/)
+
 ## Installation
 1. Clone the repository: git clone https://github.com/your-username/phonebook-r5.git
 2. Navigate to the project directory: cd phonebook-r5
