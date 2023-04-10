@@ -6,8 +6,6 @@ const Input = ({ label, required, name, ...rest }, ref) => {
 	return (
 		<p className="form-control">
 			<label htmlFor={name}>
-				<span>{label} </span>
-
 				{required ? (
 					<strong>
 						<span aria-label="required" className="required">
@@ -15,6 +13,7 @@ const Input = ({ label, required, name, ...rest }, ref) => {
 						</span>
 					</strong>
 				) : null}
+				<span>{label} </span>
 			</label>
 			<input
 				{...rest}

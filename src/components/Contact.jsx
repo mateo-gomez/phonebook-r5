@@ -15,7 +15,7 @@ const Contact = ({ contact, onClickRemove, onClickEdit }) => {
 	return (
 		<li key={contact.id}>
 			<div className="contact">
-				<Avatar size={80} color="#0081C9" />
+				<Avatar size={80} color="#6cbadf" />
 				<div className="contact-info">
 					<p>
 						{contact.first_name} {contact.last_name}

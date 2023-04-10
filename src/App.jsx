@@ -86,13 +86,12 @@ function App() {
 	return (
 		<main>
 			<h1 className="title">
-				Phone Book <ContactsIcon fill="#0081C9" />
+				Phone Book <ContactsIcon fill="#00cca7" />
 			</h1>
 
 			<InputSearch onChange={handleChangeSearch} />
 			<Button onClick={() => setShowContactForm(true)}>
-				<AddContactIcon />
-				Add contact
+				<AddContactIcon /> Add contact
 			</Button>
 			<Modal show={showContactForm} onClose={handleCloseForm}>
 				<ContactForm
