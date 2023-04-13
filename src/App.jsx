@@ -78,7 +78,7 @@ function App() {
 	};
 
 	const handleChangeSearch = (e) => {
-		const text = e.target.value;
+		const text = e.target.value.toLowerCase();
 
 		setSearch(text);
 	};

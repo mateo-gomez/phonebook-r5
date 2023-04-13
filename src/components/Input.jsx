@@ -1,8 +1,6 @@
 import { forwardRef } from "react";
 
 const Input = ({ label, required, name, ...rest }, ref) => {
-	console.log("label", label);
-
 	return (
 		<p className="form-control">
 			<label htmlFor={name}>

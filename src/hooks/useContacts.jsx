@@ -17,10 +17,13 @@ const getContacts = (search) => {
 
 	if (search) {
 		const contacts = storedContacts.filter((contact) => {
-			const someStartsWith = Object.values(contact).some((val) =>
-				val.startsWith(search)
-			);
-			const fullName = `${contact.first_name} ${contact.last_name}`;
+			const someStartsWith = Object.values(contact).some((val) => {
+				console.log(val.toLowerCase());
+
+				return val.toLowerCase().startsWith(search);
+			});
+			const fullName =
+				`${contact.first_name} ${contact.last_name}`.toLowerCase();
 
 			return someStartsWith || fullName.startsWith(search);
 		});
