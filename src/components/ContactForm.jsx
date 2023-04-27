@@ -1,21 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import Input from "./Input";
 
+const initialFormData = {
+	id: null,
+	first_name: "",
+	last_name: "",
+	phone_number: "",
+};
+
 const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
-	const formRef = useRef(null);
-
-	const firstNameRef = useRef(null);
-	const lastNameRef = useRef(null);
-	const phoneNumberRef = useRef(null);
-
-	useEffect(() => {
-		if (contact) {
-			firstNameRef.current.value = contact.first_name;
-			lastNameRef.current.value = contact.last_name;
-			phoneNumberRef.current.value = contact.phone_number;
-		}
-	}, []);
+	const [formData, setFormData] = useState(() => contact || initialFormData);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -32,14 +27,22 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 		onSubmit(newContact);
 	};
 
+	const handleInputChange = ({ name, value }) => {
+		setFormData((prevFormData) => {
+			return {
+				...prevFormData,
+				[name]: value,
+			};
+		});
+	};
+
 	return (
-		<form ref={formRef} onSubmit={handleSubmit} className="contact-form">
+		<form onSubmit={handleSubmit} className="contact-form">
 			<section>
 				<h2>Contact information</h2>
 
 				<Input
 					required
-					ref={firstNameRef}
 					minLength={3}
 					maxLength={30}
 					placeholder=" E.g: Julio"
@@ -48,11 +51,12 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 					id="first_name"
 					name="first_name"
 					autoFocus="on"
+					onChange={handleInputChange}
+					value={formData.first_name}
 				/>
 
 				<Input
 					required
-					ref={lastNameRef}
 					minLength={3}
 					maxLength={30}
 					label="Last name"
@@ -60,10 +64,11 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 					type="text"
 					id="last_name"
 					name="last_name"
+					onChange={handleInputChange}
+					value={formData.last_name}
 				/>
 				<Input
 					required
-					ref={phoneNumberRef}
 					label="Phone number"
 					placeholder="Must have at least 6 numbers"
 					type="tel"
@@ -71,11 +76,14 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 					maxLength={10}
 					id="phone_number"
 					name="phone_number"
+					onChange={handleInputChange}
+					value={formData.phone_number}
 				/>
 
 				<p className="required-text">
 					<span className="required">*</span> Indicates required
 				</p>
+
 				<div className="contact-form-actions">
 					<Button variant="outlined" onClick={onDismiss}>
 						Cancel
