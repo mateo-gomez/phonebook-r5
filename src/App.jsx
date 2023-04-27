@@ -13,58 +13,20 @@ import ContactsIcon from "./components/icons/ContactsIcon";
 function App() {
 	const [search, setSearch] = useState("");
 	const debouncedSearch = useDebounce(search);
-	const { contacts, updateContacts } = useContacts(debouncedSearch);
+	const { contacts, addContact, updateContact, removeContact } =
+		useContacts(debouncedSearch);
 	const [showContactForm, setShowContactForm] = useState(false);
 	const [contactSelected, setContactSelected] = useState(null);
-
-	const addContact = (contact) => {
-		updateContacts((prevContacts) => {
-			const contacts = [...prevContacts, contact];
-
-			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
-
-			return contacts;
-		});
-		setShowContactForm(false);
-	};
-
-	const updateContact = (contact) => {
-		updateContacts((prevContacts) => {
-			const contacts = prevContacts
-				.filter((item) => item.id !== contact.id)
-				.concat([contact]);
-
-			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
-
-			return contacts;
-		});
-
-		setContactSelected(null);
-
-		setShowContactForm(false);
-	};
 
 	const handleSubmit = (contact) => {
 		if (contact.id) {
 			updateContact(contact);
+			setContactSelected(null);
 		} else {
-			const newContact = {
-				...contact,
-				id: globalThis.crypto.randomUUID(),
-			};
-
-			addContact(newContact);
+			addContact(contact);
 		}
-	};
 
-	const handleRemoveContact = (id) => {
-		updateContacts((prevContacts) => {
-			const contacts = prevContacts.filter((item) => item.id !== id);
-
-			globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
-
-			return contacts;
-		});
+		setShowContactForm(false);
 	};
 
 	const handleCloseForm = () => {
@@ -104,7 +66,7 @@ function App() {
 			<ContactList
 				data={contacts}
 				onClickEdit={handleEditContact}
-				onClickRemove={handleRemoveContact}
+				onClickRemove={removeContact}
 			/>
 		</main>
 	);

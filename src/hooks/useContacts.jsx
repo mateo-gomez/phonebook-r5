@@ -1,14 +1,60 @@
 import { useEffect, useState } from "react";
 
 export const useContacts = (search) => {
-	const [contacts, updateContacts] = useState([]);
+	const [contacts, setContacts] = useState([]);
+
+	const addContact = (contact) => {
+		const newContact = {
+			...contact,
+			id: globalThis.crypto.randomUUID(),
+		};
+		setContacts((prevContacts) => {
+			const contacts = [...prevContacts, newContact];
+			updateStorage(contacts);
+
+			return contacts;
+		});
+	};
+
+	const updateContact = (contactUpdated) => {
+		setContacts((prevContacts) => {
+			const contacts = prevContacts.map((item) => {
+				if (item.id === contactUpdated.id) return contactUpdated;
+
+				return item;
+			});
+
+			updateStorage(contacts);
+
+			return contacts;
+		});
+	};
+
+	const removeContact = (id) => {
+		setContacts((prevContacts) => {
+			const contacts = prevContacts.filter((item) => item.id !== id);
+
+			updateStorage(contacts);
+
+			return contacts;
+		});
+	};
 
 	useEffect(() => {
 		const contacts = getContacts(search);
-		updateContacts(contacts);
+		setContacts(contacts);
 	}, [search]);
 
-	return { contacts, updateContacts };
+	return {
+		contacts,
+		addContact,
+		updateContact,
+		removeContact,
+	};
+};
+
+const updateStorage = (contacts) => {
+	globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
 };
 
 const getContacts = (search) => {
@@ -18,8 +64,6 @@ const getContacts = (search) => {
 	if (search) {
 		const contacts = storedContacts.filter((contact) => {
 			const someStartsWith = Object.values(contact).some((val) => {
-				console.log(val.toLowerCase());
-
 				return val.toLowerCase().startsWith(search);
 			});
 			const fullName =
