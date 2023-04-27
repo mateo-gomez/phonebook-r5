@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useContacts = (search) => {
 	const [contacts, setContacts] = useState([]);
@@ -40,8 +40,23 @@ export const useContacts = (search) => {
 		});
 	};
 
+	const getContacts = useCallback(
+		(search) => {
+			const contactsJson = globalThis.localStorage.getItem("contacts");
+			const storedContacts = contactsJson ? JSON.parse(contactsJson) : [];
+
+			if (!search) return storedContacts;
+
+			const filteredContacts = storedContacts.filter(filterBy(search));
+
+			return filteredContacts;
+		},
+		[search]
+	);
+
 	useEffect(() => {
 		const contacts = getContacts(search);
+
 		setContacts(contacts);
 	}, [search]);
 
@@ -57,23 +72,12 @@ const updateStorage = (contacts) => {
 	globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
 };
 
-const getContacts = (search) => {
-	const contactsJson = globalThis.localStorage.getItem("contacts");
-	const storedContacts = contactsJson ? JSON.parse(contactsJson) : [];
+const filterBy = (search) => (contact) => {
+	const someStartsWith = Object.values(contact).some((val) => {
+		return val.toLowerCase().startsWith(search);
+	});
 
-	if (search) {
-		const contacts = storedContacts.filter((contact) => {
-			const someStartsWith = Object.values(contact).some((val) => {
-				return val.toLowerCase().startsWith(search);
-			});
-			const fullName =
-				`${contact.first_name} ${contact.last_name}`.toLowerCase();
+	const fullName = `${contact.first_name} ${contact.last_name}`.toLowerCase();
 
-			return someStartsWith || fullName.startsWith(search);
-		});
-
-		return contacts;
-	}
-
-	return storedContacts;
+	return someStartsWith || fullName.startsWith(search);
 };
