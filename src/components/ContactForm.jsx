@@ -32,22 +32,6 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 		onSubmit(newContact);
 	};
 
-	useEffect(() => {
-		const form = formRef.current;
-
-		const keyDown = (e) => {
-			if (e.target === "Enter") {
-				form?.click();
-			}
-		};
-
-		form?.addEventListener("keydown", keyDown);
-
-		return () => {
-			form?.removeEventListener("keydown", keyDown);
-		};
-	}, []);
-
 	return (
 		<form ref={formRef} onSubmit={handleSubmit} className="contact-form">
 			<section>
