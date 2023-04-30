@@ -1,3 +1,5 @@
+import { CONTACTS_KEY } from "../constants";
+
 const filterBy = (search) => (contact) => {
 	const someStartsWith = Object.values(contact).some((val) => {
 		return val.toLowerCase().startsWith(search);
@@ -9,7 +11,7 @@ const filterBy = (search) => (contact) => {
 };
 
 export const getContacts = (search) => {
-	const contactsJson = globalThis.localStorage.getItem("contacts");
+	const contactsJson = globalThis.localStorage.getItem(CONTACTS_KEY);
 	const storedContacts = contactsJson ? JSON.parse(contactsJson) : [];
 
 	if (!search) return storedContacts;
@@ -56,5 +58,5 @@ export const deleteContact = (id) => {
 };
 
 const updateStorage = (contacts) => {
-	globalThis.localStorage.setItem("contacts", JSON.stringify(contacts));
+	globalThis.localStorage.setItem(CONTACTS_KEY, JSON.stringify(contacts));
 };
