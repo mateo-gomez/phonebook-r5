@@ -45,7 +45,7 @@ const ContactForm = ({ onSubmit, onDismiss, contact = null }) => {
 					required
 					minLength={3}
 					maxLength={30}
-					placeholder=" E.g: Julio"
+					placeholder="E.g: Julio"
 					label="First name"
 					type="text"
 					id="first_name"
