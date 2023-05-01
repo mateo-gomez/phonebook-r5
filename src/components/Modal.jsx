@@ -1,9 +1,10 @@
 import { createPortal } from "react-dom";
 import Card from "./Card";
 import { useEffect } from "react";
-const portalContainer = document.getElementById("portal");
 
 const Modal = ({ children, show = false, onClose }) => {
+	const portalContainer = document.getElementById("portal");
+
 	useEffect(() => {
 		const clickout = (e) => {
 			if (e.target === portalContainer.firstChild) {
@@ -17,12 +18,16 @@ const Modal = ({ children, show = false, onClose }) => {
 			}
 		};
 
-		portalContainer.addEventListener("click", clickout);
-		portalContainer.addEventListener("keydown", keyDown);
+		if (portalContainer) {
+			portalContainer.addEventListener("click", clickout);
+			portalContainer.addEventListener("keydown", keyDown);
+		}
 
 		return () => {
-			portalContainer.removeEventListener("click", clickout);
-			portalContainer.removeEventListener("keydown", keyDown);
+			if (portalContainer) {
+				portalContainer.removeEventListener("click", clickout);
+				portalContainer.removeEventListener("keydown", keyDown);
+			}
 		};
 	}, []);
 
