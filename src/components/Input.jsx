@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const Input = ({ label, onChange, required, name, ...rest }, ref) => {
+const Input = ({ label, value, onChange, required, name, ...rest }, ref) => {
 	const handleChange = (event) => {
 		const text = event.target.value;
 
@@ -25,6 +25,7 @@ const Input = ({ label, onChange, required, name, ...rest }, ref) => {
 				required={required ? "on" : "off"}
 				ref={ref}
 				id={name}
+				value={value}
 				name={name}
 			/>
 		</p>
