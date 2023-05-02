@@ -8,7 +8,6 @@ const Modal = ({ children, show = false, onClose = () => {} }) => {
 	useEffect(() => {
 		const clickout = (e) => {
 			if (e.target === portalContainer.firstChild) {
-				console.log("on", onClose);
 				onClose();
 			}
 		};
