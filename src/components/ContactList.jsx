@@ -1,7 +1,7 @@
 import Card from "./Card";
 import Contact from "./Contact";
 
-const ContactList = ({ data, onClickEdit, onClickRemove }) => {
+const ContactList = ({ data = [], onClickEdit, onClickRemove }) => {
 	return (
 		<Card>
 			<ul>
