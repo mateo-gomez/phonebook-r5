@@ -39,7 +39,7 @@ export const updateContact = (contactUpdated) => {
 	const contacts = getContacts();
 
 	const updatedContacts = contacts.map((item) => {
-		if (item.id === contactUpdated.id) return contactUpdated;
+		if (item.id === contactUpdated.id) return { ...item, ...contactUpdated };
 
 		return item;
 	});
